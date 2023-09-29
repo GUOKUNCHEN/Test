@@ -19,8 +19,7 @@ proxies:
     udp: true
     obfs: plain
     protocol: origin
-    # obfs-param: domain.tld
-    # protocol-param: "#"
+
 proxy-groups:
   - name: auto
     type: url-test
@@ -37,7 +36,7 @@ proxy-groups:
       - DIRECT
       - India-Bangalore
       - Singapore
-      
+
   - name: Proxy
     type: select
     proxies:
@@ -45,6 +44,7 @@ proxy-groups:
       - Singapore
       - India-Bangalore
       - auto
+      
 rules:
   - DOMAIN-KEYWORD,zju.edu.cn,DIRECT
   - DOMAIN-KEYWORD,twitter,fallback auto
