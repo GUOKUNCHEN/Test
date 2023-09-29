@@ -1,0 +1,71 @@
+socks-port: 7891
+mixed-port: 7890
+proxies:
+  - name: India-Bangalore
+    type: ssr
+    server: 139.84.138.7
+    port: 9788
+    cipher: aes-256-cfb
+    password: "123456"
+    udp: true
+    obfs: plain
+    protocol: origin
+  - name: "Singapore"
+    type: ssr
+    server: 139.180.213.53
+    port: 9788
+    cipher: aes-256-cfb
+    password: "123456"
+    udp: true
+    obfs: plain
+    protocol: origin
+    # obfs-param: domain.tld
+    # protocol-param: "#"
+proxy-groups:
+  - name: auto
+    type: url-test
+    url: http://www.gstatic.com/generate_204
+    interval: 300
+    proxies:
+      - DIRECT
+      - India-Bangalore
+  - name: fallback auto
+    type: fallback
+    url: http://www.gstatic.com/generate_204
+    interval: 300
+    proxies:
+      - DIRECT
+      - India-Bangalore
+      - Singapore
+      
+  - name: Proxy
+    type: select
+    proxies:
+      - DIRECT
+      - Singapore
+      - India-Bangalore
+      - auto
+rules:
+  - DOMAIN-KEYWORD,zju.edu.cn,DIRECT
+  - DOMAIN-KEYWORD,twitter,fallback auto
+  - DOMAIN-KEYWORD,github,fallback auto
+  - DOMAIN-SUFFIX,wikipedia.org,fallback auto
+  - DOMAIN-KEYWORD,pixiv,fallback auto
+  - DOMAIN-KEYWORD,dlsite,fallback auto
+  - DOMAIN-SUFFIX,asmr.one,fallback auto
+  - DOMAIN-KEYWORD,e-hentai,fallback auto
+  - DOMAIN-KEYWORD,vikacg,fallback auto
+  - DOMAIN-KEYWORD,steam,fallback auto
+  - DOMAIN-KEYWORD,steamcommunity,fallback auto
+  - DOMAIN-SUFFIX,google.com,fallback auto
+  - DOMAIN-KEYWORD,google,fallback auto
+  - DOMAIN,google.com,fallback auto
+  - DOMAIN-SUFFIX,ad.com,REJECT
+  - SRC-IP-CIDR,192.168.1.201/32,DIRECT
+  - IP-CIDR,127.0.0.0/8,DIRECT
+  - GEOIP,CN,DIRECT
+  - DST-PORT,80,DIRECT
+  - SRC-PORT,7777,DIRECT
+  - DOMAIN-SUFFIX,poe.com,fallback auto
+  - GEOIP,CN,DIRECT
+  - MATCH,fallback auto
