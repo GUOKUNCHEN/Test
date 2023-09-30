@@ -3,7 +3,7 @@ mixed-port: 7890
 proxies:
   - name: India-Bangalore
     type: ssr
-    server: 139.84.138.7
+    server: 139.84.173.116
     port: 9788
     cipher: aes-256-cfb
     password: "123456"
