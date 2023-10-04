@@ -1,18 +1,27 @@
 socks-port: 7891
 mixed-port: 7890
 proxies:
-  - name: India-Bangalore
+  - name: "Singapore"
     type: ssr
-    server: 65.20.83.169
+    server: 139.180.213.53
     port: 9788
     cipher: aes-256-cfb
     password: "123456"
     udp: true
     obfs: plain
     protocol: origin
-  - name: "Singapore"
+  - name: Tokyo
     type: ssr
-    server: 139.180.213.53
+    server: 167.179.85.167
+    port: 9788
+    cipher: aes-256-cfb
+    password: "123456"
+    udp: true
+    obfs: plain
+    protocol: origin
+  - name: Seoul
+    type: ssr
+    server: 158.247.211.120
     port: 9788
     cipher: aes-256-cfb
     password: "123456"
@@ -27,22 +36,25 @@ proxy-groups:
     interval: 300
     proxies:
       - DIRECT
-      - India-Bangalore
+      - Seoul
+      - Tokyo
       - Singapore
   - name: fallback auto
     type: fallback
     url: http://www.gstatic.com/generate_204
     interval: 300
     proxies:
-      - India-Bangalore
+      - Seoul
+      - Tokyo
       - Singapore
 
   - name: Proxy
     type: select
     proxies:
       - DIRECT
+      - Tokyo
+      - Seoul
       - Singapore
-      - India-Bangalore
       - auto
       
 rules:
@@ -50,7 +62,7 @@ rules:
   - DOMAIN-KEYWORD,ping.chinaz.com,fallback auto
   - DOMAIN-KEYWORD,zju.edu.cn,DIRECT
   - DOMAIN-KEYWORD,twitter,fallback auto
-  - DOMAIN-KEYWORD,github,auto
+  - DOMAIN-KEYWORD,github,fallback auto
   - DOMAIN-SUFFIX,wikipedia.org,fallback auto
   - DOMAIN-KEYWORD,pixiv,fallback auto
   - DOMAIN-KEYWORD,dlsite,fallback auto
